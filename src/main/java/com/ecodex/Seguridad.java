@@ -1,6 +1,6 @@
 package com.ecodex;
 
-import com.ecodex.seguridad.wsdl.*;
+import com.ecodex.seguridad.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
@@ -51,7 +51,7 @@ public class Seguridad {
         tokenSolicitud.setRFC(new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","RFC"),JAXBElement.class, rfc));
 
         Seguridad_Service servicio = new Seguridad_Service();
-        com.ecodex.seguridad.wsdl.Seguridad puertoX = servicio.getPuertoSeguridad();
+        com.ecodex.seguridad.Seguridad puertoX = servicio.getPuertoSeguridad();
 
         //((BindingProvider)puertoX).getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, 60000);
 

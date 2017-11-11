@@ -1,12 +1,12 @@
-package com.ecodex.test;
+package com.ecodex.test.v33;
 
-import com.ecodex.test.cancela.*;
-import com.ecodex.test.repositorio.RepositorioCancelaComprobanteFallaServicioFaultFaultMessage;
-import com.ecodex.test.repositorio.RepositorioCancelaComprobanteFallaSesionFaultFaultMessage;
-import com.ecodex.test.repositorio.RepositorioCancelaComprobanteFallaValidacionFaultFaultMessage;
-import com.ecodex.test.seguridad.SeguridadObtenerTokenFallaServicioFaultFaultMessage;
-import com.ecodex.test.seguridad.SeguridadObtenerTokenFallaSesionFaultFaultMessage;
-import com.ecodex.test.timbrado.*;
+import com.ecodex.test.v33.cancela.*;
+import com.ecodex.test.v33.repositorio.RepositorioCancelaComprobanteFallaServicioFaultFaultMessage;
+import com.ecodex.test.v33.repositorio.RepositorioCancelaComprobanteFallaSesionFaultFaultMessage;
+import com.ecodex.test.v33.repositorio.RepositorioCancelaComprobanteFallaValidacionFaultFaultMessage;
+import com.ecodex.test.v33.seguridad.SeguridadObtenerTokenFallaServicioFaultFaultMessage;
+import com.ecodex.test.v33.seguridad.SeguridadObtenerTokenFallaSesionFaultFaultMessage;
+import com.ecodex.test.v33.timbrado.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;

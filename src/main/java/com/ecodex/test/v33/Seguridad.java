@@ -1,12 +1,12 @@
-package com.ecodex.test;
+package com.ecodex.test.v33;
 
-import com.ecodex.test.seguridad.*;
 import com.ecodex.SHA1;
+import com.ecodex.test.v33.seguridad.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.io.UnsupportedEncodingException;
-import java.security.*;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by bennsandoval@gmail.com on 4/15/15.
@@ -53,7 +53,7 @@ public class Seguridad {
         tokenSolicitud.setRFC(new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","RFC"),JAXBElement.class, rfc));
 
         Seguridad_Service servicio = new Seguridad_Service();
-        com.ecodex.test.seguridad.Seguridad puertoX = servicio.getPuertoSeguridad();
+        com.ecodex.test.v33.seguridad.Seguridad puertoX = servicio.getPuertoSeguridad();
 
         //((BindingProvider)puertoX).getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, 60000);
 

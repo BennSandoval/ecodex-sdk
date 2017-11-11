@@ -1,12 +1,12 @@
 package com.ecodex;
 
-import com.ecodex.cancela.wsdl.*;
-import com.ecodex.repositorio.wsdl.RepositorioCancelaComprobanteFallaServicioFaultFaultMessage;
-import com.ecodex.repositorio.wsdl.RepositorioCancelaComprobanteFallaSesionFaultFaultMessage;
-import com.ecodex.repositorio.wsdl.RepositorioCancelaComprobanteFallaValidacionFaultFaultMessage;
-import com.ecodex.seguridad.wsdl.SeguridadObtenerTokenFallaServicioFaultFaultMessage;
-import com.ecodex.seguridad.wsdl.SeguridadObtenerTokenFallaSesionFaultFaultMessage;
-import com.ecodex.timbrado.wsdl.*;
+import com.ecodex.cancela.*;
+import com.ecodex.repositorio.RepositorioCancelaComprobanteFallaServicioFaultFaultMessage;
+import com.ecodex.repositorio.RepositorioCancelaComprobanteFallaSesionFaultFaultMessage;
+import com.ecodex.repositorio.RepositorioCancelaComprobanteFallaValidacionFaultFaultMessage;
+import com.ecodex.seguridad.SeguridadObtenerTokenFallaServicioFaultFaultMessage;
+import com.ecodex.seguridad.SeguridadObtenerTokenFallaSesionFaultFaultMessage;
+import com.ecodex.timbrado.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;

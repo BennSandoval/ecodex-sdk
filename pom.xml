@@ -19,7 +19,14 @@
     <ecodex.test.timbrado>http://pruebas.ecodex.com.mx:2044/ServicioTimbrado.svc?wsdl</ecodex.test.timbrado>
     <ecodex.test.clientes>http://pruebas.ecodex.com.mx:2044/ServicioClientes.svc?wsdl</ecodex.test.clientes>
     <ecodex.test.cancela>http://pruebas.ecodex.com.mx:2044/ServicioCancelacion.svc?wsdl</ecodex.test.cancela>
-    <!--Prod-->
+
+    <ecodex.test.timbradov33>http://wsdev.ecodex.com.mx:2044/ServicioTimbrado.svc?singleWsdl</ecodex.test.timbradov33>
+    <ecodex.test.seguridadv33>http://wsdev.ecodex.com.mx:2044/ServicioSeguridad.svc?singleWsdl</ecodex.test.seguridadv33>
+    <ecodex.test.repositoriov33>http://wsdev.ecodex.com.mx:2044/ServicioRepositorio.svc?singleWsdl</ecodex.test.repositoriov33>
+    <ecodex.test.comprobantesv33>http://wsdev.ecodex.com.mx:2044/ServicioComprobantes.svc?singleWsdl</ecodex.test.comprobantesv33>
+    <ecodex.test.clientesv33>http://wsdev.ecodex.com.mx:2044/ServicioClientes.svc?singleWsdl</ecodex.test.clientesv33>
+    <ecodex.test.cancelav33>http://wsdev.ecodex.com.mx:2044/ServicioCancelacion.svc?singleWsdl</ecodex.test.cancelav33>
+
     <ecodex.seguridad>http://servicios.ecodex.com.mx:4040/ServicioSeguridad.svc?wsdl</ecodex.seguridad>
     <ecodex.repositorio>http://servicios.ecodex.com.mx:4040/ServicioRepositorio.svc?wsdl</ecodex.repositorio>
     <ecodex.comprobantes>http://servicios.ecodex.com.mx:4040/ServicioComprobantes.svc?wsdl</ecodex.comprobantes>
@@ -55,7 +62,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.test.seguridad}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.test.seguridad.wsdl</packageName>
+                        <packageName>com.ecodex.test.seguridad</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -68,7 +75,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.test.repositorio}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.test.repositorio.wsdl</packageName>
+                        <packageName>com.ecodex.test.repositorio</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -81,7 +88,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.test.comprobantes}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.test.comprobantes.wsdl</packageName>
+                        <packageName>com.ecodex.test.comprobantes</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -94,7 +101,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.test.timbrado}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.test.timbrado.wsdl</packageName>
+                        <packageName>com.ecodex.test.timbrado</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -107,7 +114,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.test.clientes}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.test.cliente.wsdl</packageName>
+                        <packageName>com.ecodex.test.cliente</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -120,7 +127,86 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.test.cancela}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.test.cancela.wsdl</packageName>
+                        <packageName>com.ecodex.test.cancela</packageName>
+                        <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
+                    </configuration>
+                </execution>
+                <!--Tet v3-->
+                <execution>
+                    <id>ecodex-test-seguridad-v33</id>
+                    <goals>
+                        <goal>wsimport</goal>
+                    </goals>
+                    <configuration>
+                        <wsdlUrls>
+                            <wsdlUrl>${ecodex.test.seguridadv33}</wsdlUrl>
+                        </wsdlUrls>
+                        <packageName>com.ecodex.test.v33.seguridad</packageName>
+                        <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>ecodex-test-repositorio-v33</id>
+                    <goals>
+                        <goal>wsimport</goal>
+                    </goals>
+                    <configuration>
+                        <wsdlUrls>
+                            <wsdlUrl>${ecodex.test.repositoriov33}</wsdlUrl>
+                        </wsdlUrls>
+                        <packageName>com.ecodex.test.v33.repositorio</packageName>
+                        <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>ecodex-test-comprobantes-v33</id>
+                    <goals>
+                        <goal>wsimport</goal>
+                    </goals>
+                    <configuration>
+                        <wsdlUrls>
+                            <wsdlUrl>${ecodex.test.comprobantesv33}</wsdlUrl>
+                        </wsdlUrls>
+                        <packageName>com.ecodex.test.v33.comprobantes</packageName>
+                        <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>ecodex-test-timbradov33</id>
+                    <goals>
+                        <goal>wsimport</goal>
+                    </goals>
+                    <configuration>
+                        <wsdlUrls>
+                            <wsdlUrl>${ecodex.test.timbradov33}</wsdlUrl>
+                        </wsdlUrls>
+                        <packageName>com.ecodex.test.v33.timbrado</packageName>
+                        <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>ecodex-test-clientev33</id>
+                    <goals>
+                        <goal>wsimport</goal>
+                    </goals>
+                    <configuration>
+                        <wsdlUrls>
+                            <wsdlUrl>${ecodex.test.clientesv33}</wsdlUrl>
+                        </wsdlUrls>
+                        <packageName>com.ecodex.test.v33.cliente</packageName>
+                        <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>ecodex-test-cancelav33</id>
+                    <goals>
+                        <goal>wsimport</goal>
+                    </goals>
+                    <configuration>
+                        <wsdlUrls>
+                            <wsdlUrl>${ecodex.test.cancelav33}</wsdlUrl>
+                        </wsdlUrls>
+                        <packageName>com.ecodex.test.v33.cancela</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -134,7 +220,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.seguridad}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.seguridad.wsdl</packageName>
+                        <packageName>com.ecodex.seguridad</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -147,7 +233,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.repositorio}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.repositorio.wsdl</packageName>
+                        <packageName>com.ecodex.repositorio</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -160,7 +246,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.comprobantes}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.comprobantes.wsdl</packageName>
+                        <packageName>com.ecodex.comprobantes</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -173,7 +259,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.timbrado}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.timbrado.wsdl</packageName>
+                        <packageName>com.ecodex.timbrado</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -186,7 +272,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.clientes}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.cliente.wsdl</packageName>
+                        <packageName>com.ecodex.cliente</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
@@ -199,7 +285,7 @@
                         <wsdlUrls>
                             <wsdlUrl>${ecodex.cancela}</wsdlUrl>
                         </wsdlUrls>
-                        <packageName>com.ecodex.cancela.wsdl</packageName>
+                        <packageName>com.ecodex.cancela</packageName>
                         <sourceDestDir>${project.build.directory}/generated-sources/ecodex</sourceDestDir>
                     </configuration>
                 </execution>
