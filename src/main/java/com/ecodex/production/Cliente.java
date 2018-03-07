@@ -1,8 +1,8 @@
 package com.ecodex.production;
 
-import com.ecodex.cliente.*;
-import com.ecodex.seguridad.SeguridadObtenerTokenFallaServicioFaultFaultMessage;
-import com.ecodex.seguridad.SeguridadObtenerTokenFallaSesionFaultFaultMessage;
+import com.ecodex.production.cliente.*;
+import com.ecodex.production.seguridad.SeguridadObtenerTokenFallaServicioFaultFaultMessage;
+import com.ecodex.production.seguridad.SeguridadObtenerTokenFallaSesionFaultFaultMessage;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
