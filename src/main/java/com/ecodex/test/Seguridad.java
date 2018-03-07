@@ -29,10 +29,10 @@ public class Seguridad {
 
     }
 
-    public String construirTokenAlta(String integrador, String integradorRFC, String integradorAlta, Long trsID) throws SeguridadObtenerTokenFallaSesionFaultFaultMessage, SeguridadObtenerTokenFallaServicioFaultFaultMessage, UnsupportedEncodingException {
+    public String construirTokenAlta(String integradorKey, String integradorRFC, String integradorAltaKey, Long trsID) throws SeguridadObtenerTokenFallaSesionFaultFaultMessage, SeguridadObtenerTokenFallaServicioFaultFaultMessage, UnsupportedEncodingException {
 
         String tokenServicio = obtenerTokenServicio(trsID, integradorRFC);
-        String toHash = String.format("%s|%s|%s", integrador, integradorAlta, tokenServicio);
+        String toHash = String.format("%s|%s|%s", integradorKey, integradorAltaKey, tokenServicio);
         byte[] as = toHash.getBytes("UTF-8");
         String toHash2 = new String(as,"UTF-8");
 

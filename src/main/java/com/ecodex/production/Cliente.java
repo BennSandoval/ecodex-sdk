@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class Cliente {
 
-    public RespuestaRegistro registrar(String rfcCliente, String razonSocial, String email, String integrador, String integradorRFC, String integradorAlta) throws UnsupportedEncodingException, SeguridadObtenerTokenFallaServicioFaultFaultMessage, SeguridadObtenerTokenFallaSesionFaultFaultMessage, ClientesRegistrarFallaServicioFaultFaultMessage, ClientesRegistrarFallaValidacionFaultFaultMessage, ClientesRegistrarFallaSesionFaultFaultMessage {
+    public RespuestaRegistro registrar(String rfcCliente, String razonSocial, String email, String integradorKey, String integradorRFC, String integradorAltaKey) throws UnsupportedEncodingException, SeguridadObtenerTokenFallaServicioFaultFaultMessage, SeguridadObtenerTokenFallaSesionFaultFaultMessage, ClientesRegistrarFallaServicioFaultFaultMessage, ClientesRegistrarFallaValidacionFaultFaultMessage, ClientesRegistrarFallaSesionFaultFaultMessage {
 
         Seguridad seguridad = new Seguridad();
         Random random = new Random();
@@ -31,7 +31,7 @@ public class Cliente {
         emisor.setCorreoElectronico(emailElement);
 
         SolicitudRegistroCliente registroSolicitud = new SolicitudRegistroCliente();
-        String token = seguridad.construirTokenAlta(integrador, integradorRFC, integradorAlta, transactionID);
+        String token = seguridad.construirTokenAlta(integradorKey, integradorRFC, integradorAltaKey, transactionID);
 
         JAXBElement<AltaEmisor> altaEmisorElement = new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","Emisor"),JAXBElement.class,emisor);
         JAXBElement<String> rfcElement=new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","RfcIntegrador"),JAXBElement.class, integradorRFC);
