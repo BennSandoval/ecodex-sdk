@@ -129,6 +129,37 @@ public class Timbrar {
         return respuesta;
     }
 
+    public RespuestaCancelaTimbrado cancelaOtros(String token, String rfcEmisor, String rfcReceptor, String UUID) throws CancelacionesCancelaOtrosFallaSesionFaultFaultMessage, CancelacionesCancelaOtrosFallaServicioFaultFaultMessage, CancelacionesCancelaOtrosFallaValidacionFaultFaultMessage {
+        Random random = new Random();
+        Integer trsInt = random.nextInt();
+        Long transactionID = Long.parseLong(String.valueOf(trsInt));
+
+        JAXBElement<String> RfcEmisor = new JAXBElement (new QName("http://Ecodex.WS.Model/2011/CFDI","RFCEmisor"), JAXBElement.class, rfcEmisor);
+        JAXBElement<String> RfcReceptor = new JAXBElement (new QName("http://Ecodex.WS.Model/2011/CFDI","RFCReceptor"), JAXBElement.class, rfcReceptor);
+
+        JAXBElement<String> Token = new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","Token"),JAXBElement.class,token);
+
+        SolicitudCancelaOtros solicitud = new SolicitudCancelaOtros();
+        solicitud.setRFCEmisor(RfcEmisor);
+        solicitud.setRFCReceptor(RfcReceptor);
+        solicitud.setToken(Token);
+        solicitud.setTransaccionID(transactionID);
+        solicitud.setUUID(UUID);
+
+        Cancelaciones_Service servicioX = new Cancelaciones_Service();
+        Cancelaciones puertoX = servicioX.getPuertoCancelacion();
+        RespuestaCancelaOtros respuestaX = puertoX.cancelaOtros(solicitud);
+
+        RespuestaCancelaTimbrado respuesta = new RespuestaCancelaTimbrado();
+        if(respuestaX.getResultado().getValue().getResultadoCancelacion().get(0).getEstatus().getValue().equals("Cancelado")){
+            respuesta.setCancelada(true);
+        } else {
+            respuesta.setCancelada(false);
+        }
+        respuesta.setTransaccionID(respuestaX.getTransaccionID());
+        return respuesta;
+    }
+
     public RespuestaObtenerTimbrado obtenerTimbre(String token, String rfc, Long trsIdOriginal, String uuid) throws TimbradoObtenerTimbradoFallaValidacionFaultFaultMessage, TimbradoObtenerTimbradoFallaSesionFaultFaultMessage, TimbradoObtenerTimbradoFallaServicioFaultFaultMessage, UnsupportedEncodingException, SeguridadObtenerTokenFallaServicioFaultFaultMessage, SeguridadObtenerTokenFallaSesionFaultFaultMessage {
 
         String comprobante = new String();
