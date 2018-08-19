@@ -1,11 +1,13 @@
 package com.ecodex.production;
 
+import com.ecodex.Utils;
 import com.ecodex.production.cliente.*;
 import com.ecodex.production.seguridad.SeguridadObtenerTokenFallaServicioFaultFaultMessage;
 import com.ecodex.production.seguridad.SeguridadObtenerTokenFallaSesionFaultFaultMessage;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
@@ -104,6 +106,18 @@ public class Cliente {
         RespuestaAsignacionTimbres respuesta = puertoX.asignacionTimbres(asignacionSolicitud);
         return respuesta;
 
+    }
+
+    public String getClaveAltaCertificados(String rfc, String integradorKey) throws IOException, SeguridadObtenerTokenFallaServicioFaultFaultMessage, SeguridadObtenerTokenFallaSesionFaultFaultMessage {
+        Seguridad seguridad = new Seguridad();
+        Random random = new Random();
+        Integer trsInt = random.nextInt();
+        Long transactionID = Long.parseLong(String.valueOf(trsInt));
+
+        String token = seguridad.construirToken(rfc, transactionID, integradorKey);
+        String accessToken = Utils.getAccesToken("https://pruebasapi.ecodex.com.mx", rfc);
+        String clave =  Utils.getClaveAlta("https://pruebasapi.ecodex.com.mx", token, accessToken);
+        return clave;
     }
 
 }

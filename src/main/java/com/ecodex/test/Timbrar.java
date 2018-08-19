@@ -11,6 +11,7 @@ import com.ecodex.test.timbrado.*;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -24,8 +25,8 @@ public class Timbrar {
         Integer trsInt = random.nextInt();
         Long transactionID = Long.parseLong(String.valueOf(trsInt));
 
-        Timbrado_Service servicioX = new Timbrado_Service();
-        Timbrado puertoX = servicioX.getPuertoTimbrado();
+        Timbrado_Service service = new Timbrado_Service();
+        Timbrado timbrado = service.getPuertoTimbrado();
 
         //((BindingProvider)puertoX).getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, 60000);
 
@@ -41,7 +42,7 @@ public class Timbrar {
         solicitud.setToken(Token);
         solicitud.setTransaccionID(transactionID);
         solicitud.setComprobanteXML(xml2);
-        RespuestaTimbraXML respuesta = puertoX.timbraXML(solicitud);
+        RespuestaTimbraXML respuesta = timbrado.timbraXML(solicitud);
 
         return respuesta;
     }
@@ -53,7 +54,7 @@ public class Timbrar {
         Long transactionID = Long.parseLong(String.valueOf(trsInt));
 
         Timbrado_Service servicioX = new Timbrado_Service();
-        Timbrado puertoX = servicioX.getPuertoTimbrado();
+        Timbrado timbrado = servicioX.getPuertoTimbrado();
 
         //((BindingProvider)puertoX).getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, 60000);
 
@@ -68,56 +69,68 @@ public class Timbrar {
         solicitud.setTransaccionOriginal(trsIdOriginal);
         solicitud.setUUID(Uuid);
 
-        RespuestaEstatusTimbrado respuesta = puertoX.estatusTimbrado(solicitud);
+        RespuestaEstatusTimbrado respuesta = timbrado.estatusTimbrado(solicitud);
 
         return respuesta;
 
     }
 
-    public RespuestaCancelaTimbrado cancela(String token, String rfc, String uuid) throws TimbradoCancelaTimbradoFallaValidacionFaultFaultMessage, TimbradoCancelaTimbradoFallaServicioFaultFaultMessage, TimbradoCancelaTimbradoFallaSesionFaultFaultMessage, RepositorioCancelaComprobanteFallaServicioFaultFaultMessage, RepositorioCancelaComprobanteFallaSesionFaultFaultMessage, RepositorioCancelaComprobanteFallaValidacionFaultFaultMessage, CancelacionesCancelaMultipleFallaServicioFaultFaultMessage, CancelacionesCancelaMultipleFallaSesionFaultFaultMessage, UnsupportedEncodingException, SeguridadObtenerTokenFallaServicioFaultFaultMessage, SeguridadObtenerTokenFallaSesionFaultFaultMessage {
+    public RespuestaCancelaTimbrado cancela(String token, String rfc, String uuid) throws TimbradoCancelaTimbradoFallaValidacionFaultFaultMessage, TimbradoCancelaTimbradoFallaServicioFaultFaultMessage, TimbradoCancelaTimbradoFallaSesionFaultFaultMessage {
+        Random random = new Random();
+        Integer trsInt = random.nextInt();
+        Long transactionID = Long.parseLong(String.valueOf(trsInt));
+
+        JAXBElement<String> Rfc = new JAXBElement (new QName("http://Ecodex.WS.Model/2011/CFDI","RFC"), JAXBElement.class, rfc);
+        JAXBElement<String> Token = new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","Token"),JAXBElement.class,token);
+        JAXBElement<String> UUID = new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","UUID"),JAXBElement.class,uuid);
+
+        SolicitudCancelaTimbrado solicitudCancelaTimbrado = new SolicitudCancelaTimbrado();
+        solicitudCancelaTimbrado.setRFC(Rfc);
+        solicitudCancelaTimbrado.setToken(Token);
+        solicitudCancelaTimbrado.setTransaccionID(transactionID);
+        solicitudCancelaTimbrado.setUUID(UUID);
+
+        Timbrado_Service service = new Timbrado_Service();
+        Timbrado timbrado = service.getPuertoTimbrado();
+        RespuestaCancelaTimbrado respuestaCancelaTimbrado = timbrado.cancelaTimbrado(solicitudCancelaTimbrado);
+
+        RespuestaCancelaTimbrado respuesta = new RespuestaCancelaTimbrado();
+        if(respuestaCancelaTimbrado.isCancelada()){
+            respuesta.setCancelada(true);
+        } else {
+            respuesta.setCancelada(false);
+        }
+        respuestaCancelaTimbrado.getTransaccionID();
+        return respuesta;
+    }
+
+    public RespuestaCancelaTimbrado cancelaMasiva(String token, String rfc, List<String> uuids) throws TimbradoCancelaTimbradoFallaValidacionFaultFaultMessage, TimbradoCancelaTimbradoFallaServicioFaultFaultMessage, TimbradoCancelaTimbradoFallaSesionFaultFaultMessage, RepositorioCancelaComprobanteFallaServicioFaultFaultMessage, RepositorioCancelaComprobanteFallaSesionFaultFaultMessage, RepositorioCancelaComprobanteFallaValidacionFaultFaultMessage, CancelacionesCancelaMultipleFallaServicioFaultFaultMessage, CancelacionesCancelaMultipleFallaSesionFaultFaultMessage, UnsupportedEncodingException, SeguridadObtenerTokenFallaServicioFaultFaultMessage, SeguridadObtenerTokenFallaSesionFaultFaultMessage {
 
         Random random = new Random();
         Integer trsInt = random.nextInt();
         Long transactionID = Long.parseLong(String.valueOf(trsInt));
 
-        //Repositorio_Service servicioX = new Repositorio_Service();
-        //Repositorio puertoX = servicioX.getPuertoRepositorio();
-
-        //Timbrado_Service servicioX = new Timbrado_Service();
-        //Timbrado puertoX = servicioX.getPuertoTimbrado();
-
-        Cancelaciones_Service servicioX = new Cancelaciones_Service();
-        Cancelaciones puertoX = servicioX.getPuertoCancelacion();
+        Cancelaciones_Service service = new Cancelaciones_Service();
+        Cancelaciones cancelaciones = service.getPuertoCancelacion();
 
         //((BindingProvider)puertoX).getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, 60000);
 
         ListaCancelar lista= new ListaCancelar();
-        lista.getGuid().add(uuid);
+        for(String uuid: uuids) {
+            lista.getGuid().add(uuid);
+        }
 
-        //JAXBElement<String> UUID = new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","UUID"),JAXBElement.class,uuid);
         JAXBElement<ListaCancelar> UUIDS= new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","ListaCancelar"), JAXBElement.class,lista);
         JAXBElement<String> Rfc = new JAXBElement (new QName("http://Ecodex.WS.Model/2011/CFDI","RFC"), JAXBElement.class, rfc);
         JAXBElement<String> Token = new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","Token"),JAXBElement.class,token);
 
-        //SolicitudCancelaTimbrado solicitud = new SolicitudCancelaTimbrado();
-        //SolicitudCancelaComprobante solicitud = new SolicitudCancelaComprobante();
-
         SolicitudCancelaMultiple solicitud = new SolicitudCancelaMultiple();
-
         solicitud.setRFC(Rfc);
         solicitud.setToken(Token);
         solicitud.setListaCancelar(UUIDS);
-        //solicitud.setUUID(UUID);
         solicitud.setTransaccionID(transactionID);
 
-        //RespuestaCancelaTimbrado respuesta = puertoX.cancelaTimbrado(solicitud);
-
-        //RespuestaCancelaTimbrado respuesta = new RespuestaCancelaTimbrado();
-        //RespuestaCancelaComprobante respuestaX = puertoX.cancelaComprobante(solicitud);
-        //respuesta.setCancelada(respuestaX.isCancelada());
-        //respuesta.setTransaccionID(respuestaX.getTransaccionID());
-
-        RespuestaCancelaMultiple respuestaX = puertoX.cancelaMultiple(solicitud);
+        RespuestaCancelaMultiple respuestaX = cancelaciones.cancelaMultiple(solicitud);
         RespuestaCancelaTimbrado respuesta = new RespuestaCancelaTimbrado();
         if(respuestaX.getResultado().getValue().getResultadoCancelacion().get(0).getEstatus().getValue().equals("Cancelado")){
             respuesta.setCancelada(true);
@@ -130,6 +143,7 @@ public class Timbrar {
     }
 
     public RespuestaCancelaTimbrado cancelaOtros(String token, String rfcEmisor, String rfcReceptor, String UUID) throws CancelacionesCancelaOtrosFallaSesionFaultFaultMessage, CancelacionesCancelaOtrosFallaServicioFaultFaultMessage, CancelacionesCancelaOtrosFallaValidacionFaultFaultMessage {
+
         Random random = new Random();
         Integer trsInt = random.nextInt();
         Long transactionID = Long.parseLong(String.valueOf(trsInt));
@@ -139,6 +153,9 @@ public class Timbrar {
 
         JAXBElement<String> Token = new JAXBElement(new QName("http://Ecodex.WS.Model/2011/CFDI","Token"),JAXBElement.class,token);
 
+        Cancelaciones_Service service = new Cancelaciones_Service();
+        Cancelaciones cancelaciones = service.getPuertoCancelacion();
+
         SolicitudCancelaOtros solicitud = new SolicitudCancelaOtros();
         solicitud.setRFCEmisor(RfcEmisor);
         solicitud.setRFCReceptor(RfcReceptor);
@@ -146,10 +163,7 @@ public class Timbrar {
         solicitud.setTransaccionID(transactionID);
         solicitud.setUUID(UUID);
 
-        Cancelaciones_Service servicioX = new Cancelaciones_Service();
-        Cancelaciones puertoX = servicioX.getPuertoCancelacion();
-        RespuestaCancelaOtros respuestaX = puertoX.cancelaOtros(solicitud);
-
+        RespuestaCancelaOtros respuestaX = cancelaciones.cancelaOtros(solicitud);
         RespuestaCancelaTimbrado respuesta = new RespuestaCancelaTimbrado();
         if(respuestaX.getResultado().getValue().getResultadoCancelacion().get(0).getEstatus().getValue().equals("Cancelado")){
             respuesta.setCancelada(true);
@@ -158,17 +172,17 @@ public class Timbrar {
         }
         respuesta.setTransaccionID(respuestaX.getTransaccionID());
         return respuesta;
+
     }
 
     public RespuestaObtenerTimbrado obtenerTimbre(String token, String rfc, Long trsIdOriginal, String uuid) throws TimbradoObtenerTimbradoFallaValidacionFaultFaultMessage, TimbradoObtenerTimbradoFallaSesionFaultFaultMessage, TimbradoObtenerTimbradoFallaServicioFaultFaultMessage, UnsupportedEncodingException, SeguridadObtenerTokenFallaServicioFaultFaultMessage, SeguridadObtenerTokenFallaSesionFaultFaultMessage {
 
-        String comprobante = new String();
         Random random = new Random();
         Integer trsInt = random.nextInt();
         Long transactionID = Long.parseLong(String.valueOf(trsInt));
 
-        Timbrado_Service servicioX = new Timbrado_Service();
-        Timbrado puertoX = servicioX.getPuertoTimbrado();
+        Timbrado_Service service = new Timbrado_Service();
+        Timbrado timbrado = service.getPuertoTimbrado();
 
         //((BindingProvider)puertoX).getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, 60000);
 
@@ -183,9 +197,10 @@ public class Timbrar {
         solicitud.setTransaccionOriginal(trsIdOriginal);
         solicitud.setUUID(Uuid);
 
-        RespuestaObtenerTimbrado respuesta = puertoX.obtenerTimbrado(solicitud);
+        RespuestaObtenerTimbrado respuesta = timbrado.obtenerTimbrado(solicitud);
 
         return respuesta;
+
     }
 
     public RespuestaObtenerQRTimbrado obtenerQR(String token, String rfc, String uuid) throws TimbradoObtenerQRTimbradoFallaSesionFaultFaultMessage, TimbradoObtenerQRTimbradoFallaServicioFaultFaultMessage, TimbradoObtenerQRTimbradoFallaValidacionFaultFaultMessage, UnsupportedEncodingException, SeguridadObtenerTokenFallaServicioFaultFaultMessage, SeguridadObtenerTokenFallaSesionFaultFaultMessage {
@@ -194,8 +209,8 @@ public class Timbrar {
         Integer trsInt = random.nextInt();
         Long transactionID = Long.parseLong(String.valueOf(trsInt));
 
-        Timbrado_Service servicioX = new Timbrado_Service();
-        Timbrado puertoX = servicioX.getPuertoTimbrado();
+        Timbrado_Service service = new Timbrado_Service();
+        Timbrado timbrado = service.getPuertoTimbrado();
 
         //((BindingProvider)puertoX).getRequestContext().put(BindingProviderProperties.REQUEST_TIMEOUT, 60000);
 
@@ -209,8 +224,9 @@ public class Timbrar {
         solicitudqr.setToken(Token);
         solicitudqr.setUUID(Uuid);
 
-        RespuestaObtenerQRTimbrado respuestaqr = puertoX.obtenerQRTimbrado(solicitudqr);
+        RespuestaObtenerQRTimbrado respuestaqr = timbrado.obtenerQRTimbrado(solicitudqr);
         return respuestaqr;
+
     }
 
 }
