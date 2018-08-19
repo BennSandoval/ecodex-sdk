@@ -3,16 +3,39 @@ package com.ecodex;
 import org.json.JSONObject;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by bennsandoval on 8/19/18.
  */
 public class Utils {
+
+    public static String construirToken(String tokenService, String integradorKey) throws UnsupportedEncodingException {
+        String toHash = String.format("%s|%s", integradorKey, tokenService);
+        byte[] as = toHash.getBytes("UTF-8");
+        String toHash2 = new String(as,"UTF-8");
+        SHA1 sha1 = new SHA1();
+        try {
+            return sha1.getHash(toHash2);
+        } catch (NoSuchAlgorithmException ex) {
+            return null;
+        }
+    }
+
+    public static String construirTokenAlta(String tokenService, String integradorKey, String integradorAltaKey) throws UnsupportedEncodingException {
+        String toHash = String.format("%s|%s|%s", integradorKey, integradorAltaKey, tokenService);
+        byte[] as = toHash.getBytes("UTF-8");
+        String toHash2 = new String(as,"UTF-8");
+
+        SHA1 sha1 = new SHA1();
+        try {
+            return sha1.getHash(toHash2);
+        } catch (NoSuchAlgorithmException ex) {
+            return null;
+        }
+    }
 
     public static String getAccesToken(String server, String rfc) throws IOException {
         URL obj = new URL(server + "/token?version=2");
