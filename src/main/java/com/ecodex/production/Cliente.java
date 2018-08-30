@@ -121,8 +121,8 @@ public class Cliente {
         String tokenServicio = seguridad.obtenerTokenServicio(transactionID, rfc);
         String token = Utils.construirToken(tokenServicio, integradorKey);
 
-        String accessToken = Utils.getAccesToken("https://pruebasapi.ecodex.com.mx", rfc);
-        String clave =  Utils.getClaveAlta("https://pruebasapi.ecodex.com.mx", token, accessToken);
+        String accessToken = Utils.getAccesToken("https://apiservicios.ecodex.com.mx", rfc);
+        String clave =  Utils.getClaveAlta("https://apiservicios.ecodex.com.mx", token, accessToken);
         return clave;
 
     }
